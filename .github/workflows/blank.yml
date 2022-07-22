@@ -12,9 +12,14 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # ubuntu-18.04 for file open dialog to last visit folder
+        os: [ubuntu-latest]
+        sku: [CAN, DEV, RUO, Non-RUO]
     env:
-      TOSTADOR_SKU: ${{ github.ref_name }}
+      TOSTADOR_SKU: ${{ github.ref_name }}-${{ matrix.sku }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
